@@ -62,3 +62,16 @@ bash evals.sh $OUTPUT_PATH
 ```
 
 where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/xxx/docnli_output.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
+
+## Citation
+
+If you find this work useful, please consider citing:
+
+```bibtex
+@inproceedings{huang2023zero,
+  title     = "Zero-shot Faithful Factual Error Correction",
+  author    = "Huang, Kung-Hsiang and Chan, Hou Pong and Ji, Heng",
+  year = "2023",
+  publisher = "Association for Computational Linguistics",
+}
+```
