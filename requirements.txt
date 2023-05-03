@@ -1,0 +1,6 @@
+torch==1.11.0
+transformers==4.19.2
+spacy==3.4.2
+sentencepiece==0.1.97
+numpy==1.21.6
+py-rouge==1.0.0
