@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ## Data
 
-The FEVER and SciFact datasets used in our experiments are uploaded in a separate submission in the softconf portal. Create a folder named `data` and download the attached data into that folder.
+The FEVER and SciFact datasets used in our experiments can be downloaded [here](https://drive.google.com/drive/folders/1PXZ-00vPrHAGc549ZOGC6W7s3bJH1lvo?usp=share_link). 
 
 ## Training
 No training is needed as our framework corrects factual error is a zero-shot fashion. All individual components have been trained on the corresponding sub-task. Please download each component as follows:
@@ -26,7 +26,7 @@ No training is needed as our framework corrects factual error is a zero-shot fas
 * __Candidate Generation__: Download spacy models by running `python -m spacy download en_core_web_lg` and `python -m spacy download en_core_sci_md`.
 * __Question Generation__: It's already on HuggingFace `Salesforce/mixqg-base`. No action needed.
 * __Question Answering__: It's already on HuggingFace `allenai/unifiedqa-v2-t5-base-1251000`. No action needed.
-* __QA-to-Claim__: Download the checkpoint folder from [here](https://drive.google.com/file/d/1j-TIWvAVdXo0Xu2zIKuwo7mU7230lo6G/view?usp=share_link). Unzip it and move the directory such that it is at `zerofec/qa2claim`.
+* __QA-to-Claim__: Download the checkpoint folder from [here](https://drive.google.com/file/d/13ZEEkYR6HZgl5PaYc0oREjchODHmJ_kU/view?usp=share_link). Unzip it and move the directory such that it is at `zerofec/qa2claim`.
 * __Correction Scoring__: Download the DocNLI model from [its repo](https://github.com/salesforce/DocNLI) such that the checkpoint is at `zerofec/docnli/DocNLI.pretrained.RoBERTA.model.pt`.
 
 The checkpoints of the domain-adapted models are not included in this submission due to cloud storage limit. We will make sure it is included in our public repo upon acceptance as we will have much larger cloud storage then.
