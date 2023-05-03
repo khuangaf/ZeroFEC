@@ -1,5 +1,9 @@
-# ZeroFEC
-We propose a zero-shot framework for factual error correction. Our approach outperforms fully-supervised methods on two factual error correction datasets. More importantly, the decomposability of our framework naturally offers interpretability.
+# Zero-shot Faithful Factual Error Correction (ACL 2023)
+
+Authors: [Kung-Hsiang (Steeve) Huang](https://khuangaf.github.io/), [Hou Pong (Ken) Chan](https://www.fst.um.edu.mo/personal/hpchan/) and [Heng Ji](https://blender.cs.illinois.edu/hengji.html)
+
+Faithfully correcting factual errors is critical for maintaining the integrity of textual knowledge bases and preventing hallucinations in sequence-to-sequence models. Drawing on humans' ability to identify and correct factual errors, we present a zero-shot framework that formulates questions about input claims, looks for correct answers in the given evidence, and assesses the faithfulness of each correction based on its consistency with the evidence. Our zero-shot framework outperforms fully-supervised approaches, as demonstrated by experiments on the \textsc{FEVER} and \textsc{SciFact} datasets, where our outputs are shown to be more faithful. More importantly, the decomposability nature of our framework inherently provides interpretability. Additionally, to reveal the most suitable metrics for evaluating factual error corrections, we analyze the correlation between commonly used metrics with human judgments in terms of three different dimensions regarding intelligibility and faithfulness.\footnote{The code and data are attached in the submission and will be made publicly available upon acceptance.
+
 
 ## Dependencies 
 
