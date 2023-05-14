@@ -74,6 +74,8 @@ If you find this work useful, please consider citing:
   title     = "Zero-shot Faithful Factual Error Correction",
   author    = "Huang, Kung-Hsiang and Chan, Hou Pong and Ji, Heng",
   year = "2023",
+  month= july,
+  booktitle = "Proceedings of the 61th Annual Meeting of the Association for Computational Linguistics",
   publisher = "Association for Computational Linguistics",
 }
 ```
