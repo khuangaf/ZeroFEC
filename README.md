@@ -31,7 +31,7 @@ No training is needed as our framework corrects factual error is a zero-shot fas
 * __QA-to-Claim__: Download the checkpoint folder from [here](https://drive.google.com/file/d/13ZEEkYR6HZgl5PaYc0oREjchODHmJ_kU/view?usp=share_link). Unzip it and move the directory such that it is at `zerofec/qa2claim`.
 * __Correction Scoring__: Download the DocNLI model from [its repo](https://github.com/salesforce/DocNLI) such that the checkpoint is at `zerofec/docnli/DocNLI.pretrained.RoBERTA.model.pt`.
 
-The checkpoints of the domain-adapted models are not included in this submission due to cloud storage limit. We will make sure it is included in our public repo upon acceptance as we will have much larger cloud storage then.
+The checkpoints for the domain-adapted models can be found [here](https://drive.google.com/drive/folders/15JBbtHpcoaQWLRG8s_adx-0R2dhFYM4c?usp=sharing).
 
 
 ## Inference
