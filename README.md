@@ -69,7 +69,7 @@ where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/
 
 ## Direct Use
 
-Example usage of ZeroFEC is shown below. 
+Example use of ZeroFEC is shown below. 
 
 ```python
 from types import SimpleNamespace
@@ -96,7 +96,7 @@ sample = {
 }
 corrected_claim = zerofec.correct(sample)
 ```
-The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate outputs that provide interpretability.
+The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate outputs that provide interpretability. 
 
 Batch processing is supported via: 
 
@@ -105,7 +105,7 @@ zerofec.batch_correct(samples)
 ```
 where `samples` is a list of dictionary.
 
-For additional information, please refer to `main.py`.
+For additional information about `model_args`, please refer to `main.py`.
 
 ## Citation
 
