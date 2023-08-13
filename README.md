@@ -13,7 +13,7 @@ Faithfully correcting factual errors is critical for maintaining the integrity o
 
 All the required packages are listed in `requirements.txt`. To install all the dependencies, run
 
-```
+```bash
 conda create -n zerofec python=3.7
 conda activate zerofec
 pip install -r requirements.txt
@@ -40,7 +40,7 @@ The checkpoints for the domain-adapted models can be found [here](https://drive.
 
 The inference scripts for performing factual error correction is located under the `zerofec/scripts` directory. To run inference on the FEVER dataset, use the following command:
 
-```
+```bash
 cd zerofec
 mkdir output
 mkdir output/fever
@@ -60,7 +60,7 @@ Download the metrics by followng instructions in their corresponding repos:
 
 The evaluation scripts are in the `evals` directory. All evaluation, except for QAFactEval, is in the script `evals.sh`. This is because QAFactEval has a different set of dependencies from metrics. For all other metrics, you can install corresponding dependencies in the `zerofec` virtual enviroment we created at the begging of this README. For QAFactEval, you need to create a new environment and install QAFactEval's dependencies in it.
 
-```
+```bash
 cd evals
 bash evals.sh $OUTPUT_PATH
 ```
@@ -71,7 +71,7 @@ where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/
 
 Example usage of ZeroFEC is shown below. 
 
-```
+```python
 from types import SimpleNamespace
 from zerofec.zerofec import ZeroFEC
 
