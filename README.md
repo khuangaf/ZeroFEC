@@ -36,36 +36,6 @@ No training is needed as our framework corrects factual error is a zero-shot fas
 The checkpoints for the domain-adapted models can be found [here](https://drive.google.com/drive/folders/15JBbtHpcoaQWLRG8s_adx-0R2dhFYM4c?usp=sharing).
 
 
-## Inference
-
-The inference scripts for performing factual error correction is located under the `zerofec/scripts` directory. To run inference on the FEVER dataset, use the following command:
-
-```bash
-cd zerofec
-mkdir output
-mkdir output/fever
-bash run.sh $OUTPUT_NAME
-```
-
-where `$OUTPUT_NAME` is the name of the experiment or output. The final output can be found at `output/fever/$OUTPUT_NAME/docnli_output.jsonl`. In this output file, we include all the intermediate outputs, including all the questions and answers generated and the scores, to demonstrate the interprebaility of our approach.
-
-
-## Evaluation
-
-Download the metrics by followng instructions in their corresponding repos:
-
-* [QAFactEval](https://github.com/salesforce/QAFactEval)
-* [BARTScore](https://github.com/neulab/BARTScore)
-* [FactCC](https://github.com/salesforce/factCC)
-
-The evaluation scripts are in the `evals` directory. All evaluation, except for QAFactEval, is in the script `evals.sh`. This is because QAFactEval has a different set of dependencies from metrics. For all other metrics, you can install corresponding dependencies in the `zerofec` virtual enviroment we created at the begging of this README. For QAFactEval, you need to create a new environment and install QAFactEval's dependencies in it.
-
-```bash
-cd evals
-bash evals.sh $OUTPUT_PATH
-```
-
-where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/xxx/docnli_output.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
 
 ## Direct Use
 
@@ -106,6 +76,25 @@ zerofec.batch_correct(samples)
 where `samples` is a list of dictionary.
 
 For additional information about `model_args`, please refer to `main.py`.
+
+
+## Evaluation
+
+Download the metrics by followng instructions in their corresponding repos:
+
+* [QAFactEval](https://github.com/salesforce/QAFactEval)
+* [BARTScore](https://github.com/neulab/BARTScore)
+* [FactCC](https://github.com/salesforce/factCC)
+
+The evaluation scripts are in the `evals` directory. All evaluation, except for QAFactEval, is in the script `evals.sh`. This is because QAFactEval has a different set of dependencies from metrics. For all other metrics, you can install corresponding dependencies in the `zerofec` virtual enviroment we created at the begging of this README. For QAFactEval, you need to create a new environment and install QAFactEval's dependencies in it.
+
+```bash
+cd evals
+bash evals.sh $OUTPUT_PATH
+```
+
+where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/xxx/docnli_output.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
+
 
 ## Citation
 
