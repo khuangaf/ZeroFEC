@@ -3,9 +3,11 @@
 
 [Kung-Hsiang (Steeve) Huang](https://khuangaf.github.io/), [Hou Pong (Ken) Chan](https://www.fst.um.edu.mo/personal/hpchan/) and [Heng Ji](https://blender.cs.illinois.edu/hengji.html)
 
+Paper link: [ACL](https://aclanthology.org/2023.acl-long.311/) 
 ## Abstract
 Faithfully correcting factual errors is critical for maintaining the integrity of textual knowledge bases and preventing hallucinations in sequence-to-sequence models. Drawing on humans' ability to identify and correct factual errors, we present a zero-shot framework that formulates questions about input claims, looks for correct answers in the given evidence, and assesses the faithfulness of each correction based on its consistency with the evidence. Our zero-shot framework outperforms fully-supervised approaches, as demonstrated by experiments on the FEVER and SciFact datasets, where our outputs are shown to be more faithful. More importantly, the decomposability nature of our framework inherently provides interpretability. Additionally, to reveal the most suitable metrics for evaluating factual error corrections, we analyze the correlation between commonly used metrics with human judgments in terms of three different dimensions regarding intelligibility and faithfulness.
 
+<img src="./framework_overview.png"  class="center">
 
 ## Dependencies 
 
@@ -64,6 +66,46 @@ bash evals.sh $OUTPUT_PATH
 ```
 
 where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/xxx/docnli_output.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
+
+## Direct Use
+
+Example usage of ZeroFEC is shown below. 
+
+```
+from types import SimpleNamespace
+from zerofec.zerofec import ZeroFEC
+
+model_args = {
+    'qg_path': 'Salesforce/mixqg-base',
+    'qa_model_path': 'allenai/unifiedqa-v2-t5-base-1251000',
+    'qa_tokenizer_path': 't5-base',
+    'entailment_model_path': 'PATH/TO/DocNLI.pretrained.RoBERTA.model.pt',
+    'entailment_tokenizer_path':'roberta-large',
+    'qa2s_tokenizer_path': 't5-base',
+    'qa2s_model_path': 'PATH/TO/qa2claim-base/checkpoint-38000',
+    'use_scispacy': False
+}
+
+model_args = SimpleNamespace(**model_args)
+
+zerofec = ZeroFEC(model_args)
+
+sample = {
+  "input_claim": "Night of the Living Dead is a Spanish comic book."
+  "evidence": "0 Night of the Living Dead is a 1968 American independent horror film , directed by George A. Romero ..."
+}
+corrected_claim = zerofec.correct(sample)
+```
+The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate QA and QA outputs that provide interpretability.
+
+Batch processing is supported with 
+
+```
+zerofec.batch_correct(samples)
+```
+where `samples` is a list of dictionary.
+
+For additional information, please refer to `main.py`.
 
 ## Citation
 
