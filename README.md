@@ -29,11 +29,9 @@ No training is needed as our framework corrects factual error is a zero-shot fas
 
 * __Candidate Generation__: Download spacy models by running `python -m spacy download en_core_web_lg` and `python -m spacy download en_core_sci_md`.
 * __Question Generation__: It's already on HuggingFace `Salesforce/mixqg-base`. No action needed.
-* __Question Answering__: It's already on HuggingFace `allenai/unifiedqa-v2-t5-base-1251000`. No action needed.
-* __QA-to-Claim__: Download the checkpoint folder from [here](https://drive.google.com/file/d/13ZEEkYR6HZgl5PaYc0oREjchODHmJ_kU/view?usp=share_link). Unzip it and move the directory such that it is at `zerofec/qa2claim`.
-* __Correction Scoring__: Download the DocNLI model from [its repo](https://github.com/salesforce/DocNLI) such that the checkpoint is at `zerofec/docnli/DocNLI.pretrained.RoBERTA.model.pt`.
-
-The checkpoints for the domain-adapted models can be found [here](https://drive.google.com/drive/folders/15JBbtHpcoaQWLRG8s_adx-0R2dhFYM4c?usp=sharing).
+* __Question Answering__: It's already on HuggingFace `allenai/unifiedqa-v2-t5-base-1251000`. No action needed. The domain-adapted version is also made available on Huggingface `khhuang/zerofec-daqa-t5-base`.
+* __QA-to-Claim__: We have made it available on HuggingFace `khhuang/zerofec-qa2claim-t5-base`.
+* __Correction Scoring__: Download the DocNLI model from [its repo](https://github.com/salesforce/DocNLI) such that the checkpoint is at `zerofec/docnli/DocNLI.pretrained.RoBERTA.model.pt`. The checkpoints for the domain-adapted models can be found [here](https://drive.google.com/drive/u/3/folders/1ksaAw1n8BIuxReFLc8CdSLHO6H34Srpy).
 
 
 
@@ -51,8 +49,8 @@ model_args = {
     'qa_tokenizer_path': 't5-base',
     'entailment_model_path': 'PATH/TO/DocNLI.pretrained.RoBERTA.model.pt',
     'entailment_tokenizer_path':'roberta-large',
-    'qa2s_tokenizer_path': 't5-base',
-    'qa2s_model_path': 'PATH/TO/qa2claim-base/checkpoint-38000',
+    'qa2s_tokenizer_path': 'khhuang/zerofec-daqa-t5-base',
+    'qa2s_model_path': 'khhuang/zerofec-daqa-t5-base',
     'use_scispacy': False
 }
 
@@ -62,7 +60,7 @@ zerofec = ZeroFEC(model_args)
 
 sample = {
   "input_claim": "Night of the Living Dead is a Spanish comic book."
-  "evidence": "0 Night of the Living Dead is a 1968 American independent horror film , directed by George A. Romero ..."
+  "evidence": "Night of the Living Dead is a 1968 American independent horror film , directed by George A. Romero ..."
 }
 corrected_claim = zerofec.correct(sample)
 ```

@@ -8,11 +8,6 @@ def format_inputs_qa(context: str, question: str):
     # return f"extract answers: <hl> Beyonce further expanded her acting career, starring as blues singer Etta James in the 2008 musical biopic, Cadillac Records. <hl> Her performance in the film received praise from critics, and she garnered several nominations for her portrayal of James, including a Satellite Award nomination for Best Supporting Actress, and a NAACP Image Award nomination for Outstanding Supporting Actress."
     return f"{question} \n {context}"
 
-def format_inputs_mc_typing(context: str, entity: str):
-    question = f'What is \"{entity}\" in the sentence? \\n (A) A country (B) A location (C) Date or time information (D) A person or a group of people (E) An event'
-
-    return f"{question} \\n {context}"
-
 class QuestionAnswerer:
     def __init__(self, args):
         
