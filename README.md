@@ -96,11 +96,11 @@ sample = {
 }
 corrected_claim = zerofec.correct(sample)
 ```
-The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate QA and QA outputs that provide interpretability.
+The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate outputs that provide interpretability.
 
-Batch processing is supported with 
+Batch processing is supported via: 
 
-```
+```python
 zerofec.batch_correct(samples)
 ```
 where `samples` is a list of dictionary.
