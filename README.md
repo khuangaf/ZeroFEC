@@ -64,7 +64,7 @@ sample = {
 }
 corrected_claim = zerofec.correct(sample)
 ```
-The `corrected_claim` variable now contains `final_answer`, which is the final correction as well as all intermediate outputs that provide interpretability. 
+The `corrected_claim` dictionary now contains a key `final_answer`, which is the final correction, as well as all intermediate outputs that provide interpretability. 
 
 Batch processing is supported via: 
 
