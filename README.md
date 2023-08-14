@@ -75,7 +75,13 @@ where `samples` is a list of dictionary.
 
 For additional information about `model_args`, please refer to `main.py`.
 
-
+To run prediction on the two datasets we used for our experiments, use the following
+```bash
+python main.py --input_path PATH/TO/scifact_test.jsonl  --output_path  outputs/scifact_outputs.jsonl
+```
+```bash
+python main.py --input_path PATH/TO/fever_test.jsonl  --output_path  outputs/fever_outputs.jsonl
+```
 ## Evaluation
 
 Download the metrics by followng instructions in their corresponding repos:
@@ -91,7 +97,7 @@ cd evals
 bash evals.sh $OUTPUT_PATH
 ```
 
-where `$OUTPUT_PATH` is the path to the DocNLI output (it should look like `xxx/xxx/docnli_output.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
+where `$OUTPUT_PATH` is the path to the output file from `main.py` (e.g. `outputs/fever_outputs.jsonl`). Following a similar procedure, you can evaluate our performance in QAFactEval using the `evals_qafactevals.sh` script.
 
 
 ## Citation

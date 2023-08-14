@@ -13,28 +13,14 @@ from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--predicted_path', required=True)
-parser.add_argument('--input_path', default='data/fever_correct/evals/test_srcs.json')
-parser.add_argument('--gold_path', default='data/fever_correct/evals/test_tgts.json')
-parser.add_argument('--evidence_path', default='data/fever_correct/evals/test_evidence.json')
+parser.add_argument('--gold_path', required=True)
 parser.add_argument('--eval_evidence', action='store_true')
-parser.add_argument('--eval_scifact', action='store_true')
+
 
 
 args = parser.parse_args()
-if args.eval_scifact:
-    args.evidence_path = args.evidence_path.replace('fever','scifact')
-    args.gold_path = args.gold_path.replace('fever','scifact')
-    args.input_path = args.input_path.replace('fever','scifact')
 
-factcc_path = args.predicted_path.replace('.json','.factcc.json')
-bartscore_path = args.predicted_path.replace('.json','.bartscore.json')
-sari_path = args.predicted_path.replace('.json','.sari.json')
-sariadd_path = args.predicted_path.replace('.json','.sariadd.json')
-sarikeep_path = args.predicted_path.replace('.json','.sarikeep.json')
-saridelete_path = args.predicted_path.replace('.json','.saridelete.json')
-rouge1_path = args.predicted_path.replace('.json','.rouge1.json')
-rouge2_path = args.predicted_path.replace('.json','.rouge2.json')
-rougel_path = args.predicted_path.replace('.json','.rougel.json')
+
 
 def calculate_sari(
     input_lns: List[str], output_lns: List[str], reference_lns: List[str]
@@ -49,17 +35,6 @@ def calculate_sari(
         c.append(c_)
         d.append(d_)
 
-    with open(sari_path, 'w') as f:
-        json.dump(d, f)
-
-    with open(sarikeep_path, 'w') as f:
-        json.dump(a, f)
-
-    with open(saridelete_path, 'w') as f:
-        json.dump(b, f)
-
-    with open(sariadd_path, 'w') as f:
-        json.dump(c, f)
     return {
         "sari_avgkeepscore": np.mean(a),
         "sari_avgdelscore": np.mean(b),
@@ -99,15 +74,6 @@ def compute_rouge(preds, golds, return_all=False):
 
     tmp_scores = tmp_evaluator.get_scores(preds, golds)
 
-    with open(rouge1_path, 'w') as f:
-        json.dump([s['f'][0] for s in tmp_scores['rouge-1']], f)
-
-    with open(rouge2_path, 'w') as f:
-        json.dump([s['f'][0] for s in tmp_scores['rouge-2']], f)
-
-    with open(rougel_path, 'w') as f:
-        json.dump([s['f'][0] for s in tmp_scores['rouge-l']], f)
-
     if return_all:
         evaluator = rouge.Rouge(metrics=['rouge-n', 'rouge-l'],
                            max_n=2,
@@ -127,15 +93,13 @@ def compute_rouge(preds, golds, return_all=False):
                 'rL': scores['rouge-l']['f']}
                 
 def get_factcc_score(predictions, evidences):
-    model = BertForSequenceClassification.from_pretrained('/path/to/factcc-checkpoint').cuda()
+    model = BertForSequenceClassification.from_pretrained('/shared/nas/data/m1/khhuang3/info_correct/qgqa/factCC/factcc-checkpoint').cuda()
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     assert len(predictions) == len(evidences)
     res = []
     for prediction, evidence in tqdm(zip(predictions, evidences)):
         
-        evidence = '\n'.join([' '.join(e.split('\t')[1:]) for e in evidence.split('\n')])
-        # print(ctx)
-        # print(ctx)
+        
         # dynamically determine how much input to use
         encoded_ctx = tokenizer.encode(evidence)[:-1] # remove [SEP]
         encoded_prediction = tokenizer.encode(prediction)[1:] # remove [CLS]
@@ -165,40 +129,38 @@ def get_factcc_score(predictions, evidences):
             
 
 with open(args.predicted_path,'r') as f:
-    predictions = json.load(f)#['predictions']
 
-tgt_path = args.evidence_path if args.eval_evidence else args.gold_path
-with open(tgt_path, 'r') as f:
-    tgts = json.load(f)#['target']
-    # if not args.eval_evidence:
-    #     tgts = [[tgt] for tgt in tgts]
-with open(args.input_path, 'r') as f:
-    inputs = json.load(f)#['source']
+    predictions = []
+    inputs = []
+    for l in f.readlines():
+        sample = json.loads(l)
+        inputs.append(sample['input_claim'])
+        predictions.append(sample['final_answer'])
+     
 
-if args.eval_evidence:
-    factcc_scores = get_factcc_score(predictions, tgts)
-    print("FactCC Score", np.mean(factcc_scores))
-    with open(factcc_path, 'w') as f:
-        json.dump(factcc_scores, f)
-    # print(predictions)
-    bart_scorer = BARTScorer(device='cuda:0', checkpoint='facebook/bart-large-cnn')
-    bart_scores = bart_scorer.score(tgts, predictions, batch_size=4)
-
-    print("BART Score", np.mean(bart_scores))
-
-    with open(bartscore_path, 'w') as f:
-        json.dump(bart_scores, f)
-
-
-
-
-# bart_score = (np.mean(forward_bart_scores) + np.mean(reverse_bart_scores))/ 2
-
-if not args.eval_evidence:
-    sari_scores = calculate_sari(inputs, predictions, tgts)
-    print(sari_scores)
-
+with open(args.gold_path, 'r') as f:
+    gts = []
+    evidences = []
+    for l in f.readlines():
+        sample = json.loads(l)
+        gts.append(sample['gt_claim'])
+        evidences.append(' '.join(sample['evidence']))
+    
     
 
-    rouge_scores = compute_rouge(predictions, tgts)
-    print(rouge_scores)
+# if args.eval_evidence:
+factcc_scores = get_factcc_score(predictions, evidences)
+print("FactCC Score", np.mean(factcc_scores))
+# print(predictions)
+bart_scorer = BARTScorer(device='cuda:0', checkpoint='facebook/bart-large-cnn')
+bart_scores = bart_scorer.score(evidences, predictions, batch_size=4)
+
+print("BART Score", np.mean(bart_scores))
+
+sari_scores = calculate_sari(inputs, predictions, gts)
+print(sari_scores)
+
+
+
+rouge_scores = compute_rouge(predictions, gts)
+print(rouge_scores)

@@ -14,12 +14,12 @@ def get_fever_model_args():
 
     args = {
         'qg_path': 'Salesforce/mixqg-base',
-        'qa_model_path': 'allenai/unifiedqa-v2-t5-base-1251000',
-        'qa_tokenizer_path': 't5-base',
-        'entailment_model_path': '/shared/nas/data/m1/khhuang3/info_correct/qgqa/docnli/DocNLI.pretrained.RoBERTA.model.pt',
+        'qa_model_path': 'khhuang/zerofec-daqa-t5-base',
+        'qa_tokenizer_path': 'khhuang/zerofec-daqa-t5-base',
+        'entailment_model_path': '/shared/nas/data/m1/khhuang3/info_correct/docnli/docnli-roberta_pubmed_bioasq.pt',
         'entailment_tokenizer_path':'roberta-large',
-        'qa2s_tokenizer_path': 't5-base',
-        'qa2s_model_path': '/shared/nas/data/m1/khhuang3/info_correct/qa2claim/qa2claim-base/checkpoint-38000',
+        'qa2s_tokenizer_path': 'khhuang/zerofec-qa2claim-t5-base',
+        'qa2s_model_path': 'khhuang/zerofec-qa2claim-t5-base',
         'use_scispacy': False
     }
     # This way the algo can call args with args.model_name, not args["model_name"].
@@ -32,12 +32,12 @@ def get_scifact_model_args():
 
     args = {
         'qg_path': 'Salesforce/mixqg-base',
-        'qa_model_path': '/shared/nas/data/m1/khhuang3/info_correct/unifiedqa/bart/pubmedqa_unifiedqa/checkpoint-1100',
-        'qa_tokenizer_path': 't5-base',
+        'qa_model_path': 'khhuang/zerofec-daqa-t5-base',
+        'qa_tokenizer_path': 'khhuang/zerofec-daqa-t5-base',
         'entailment_model_path': '/shared/nas/data/m1/khhuang3/info_correct/docnli/docnli-roberta_pubmed_bioasq.pt',
         'entailment_tokenizer_path':'roberta-large',
-        'qa2s_tokenizer_path': 't5-base',
-        'qa2s_model_path': '/shared/nas/data/m1/khhuang3/info_correct/qa2claim/qa2claim-base/checkpoint-38000',
+        'qa2s_tokenizer_path': 'khhuang/zerofec-qa2claim-t5-base',
+        'qa2s_model_path': 'khhuang/zerofec-qa2claim-t5-base',
         'use_scispacy': True
     }
     # This way the algo can call args with args.model_name, not args["model_name"].
