@@ -24,13 +24,13 @@ pip install -r requirements.txt
 
 The FEVER and SciFact datasets used in our experiments can be downloaded [here](https://drive.google.com/drive/folders/1PXZ-00vPrHAGc549ZOGC6W7s3bJH1lvo?usp=share_link). 
 
-## Training
+## Components
 No training is needed as our framework corrects factual error is a zero-shot fashion. All individual components have been trained on the corresponding sub-task. Please download each component as follows:
 
 * __Candidate Generation__: Download spacy models by running `python -m spacy download en_core_web_lg` and `python -m spacy download en_core_sci_md`.
-* __Question Generation__: It's already on HuggingFace `Salesforce/mixqg-base`. No action needed.
-* __Question Answering__: It's already on HuggingFace `allenai/unifiedqa-v2-t5-base-1251000`. No action needed. The domain-adapted version is also made available on Huggingface `khhuang/zerofec-daqa-t5-base`.
-* __QA-to-Claim__: We have made it available on HuggingFace `khhuang/zerofec-qa2claim-t5-base`.
+* __Question Generation__: It's already on HuggingFace [Salesforce/mixqg-base](https://huggingface.co/Salesforce/mixqg-base). No action needed.
+* __Question Answering__: It's already on HuggingFace [allenai/unifiedqa-v2-t5-base-1251000](https://huggingface.co/allenai/unifiedqa-v2-t5-base-1251000). The domain-adapted version is also made available on Huggingface [khhuang/zerofec-daqa-t5-base](https://huggingface.co/khhuang/zerofec-daqa-t5-base).
+* __QA-to-Claim__: We have made it available on HuggingFace [khhuang/zerofec-qa2claim-t5-base](https://huggingface.co/khhuang/zerofec-qa2claim-t5-base).
 * __Correction Scoring__: Download the DocNLI model from [its repo](https://github.com/salesforce/DocNLI) such that the checkpoint is at `zerofec/docnli/DocNLI.pretrained.RoBERTA.model.pt`. The checkpoints for the domain-adapted models can be found [here](https://drive.google.com/drive/u/3/folders/1ksaAw1n8BIuxReFLc8CdSLHO6H34Srpy).
 
 
