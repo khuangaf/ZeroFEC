@@ -49,8 +49,8 @@ model_args = {
     'qa_tokenizer_path': 't5-base',
     'entailment_model_path': 'PATH/TO/DocNLI.pretrained.RoBERTA.model.pt',
     'entailment_tokenizer_path':'roberta-large',
-    'qa2s_tokenizer_path': 'khhuang/zerofec-daqa-t5-base',
-    'qa2s_model_path': 'khhuang/zerofec-daqa-t5-base',
+    'qa2s_tokenizer_path': 'khhuang/zerofec-qa2claim-t5-base',
+    'qa2s_model_path': 'khhuang/zerofec-qa2claim-t5-base',
     'use_scispacy': False
 }
 
@@ -64,7 +64,7 @@ sample = {
 }
 corrected_claim = zerofec.correct(sample)
 ```
-The `correct_claim` variable now contains `final_answer`, which is the corrected claim as well as all intermediate outputs that provide interpretability. 
+The `corrected_claim` variable now contains `final_answer`, which is the final correction as well as all intermediate outputs that provide interpretability. 
 
 Batch processing is supported via: 
 
